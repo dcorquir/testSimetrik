@@ -12,7 +12,12 @@ class Transactions(Base):
     client_id = Column(String)
     client_name = Column(String)
 
-    def __init__(self, transaction_date, transaction_amount, client_id, client_name):
+    class Meta:
+        verbose_name = 'Transaction'
+        verbose_name_plural = 'Transactions'
+
+    def __init__(self, transaction_id, transaction_date, transaction_amount, client_id, client_name):
+        self.transaction_id = transaction_id
         self.transaction_date = transaction_date
         self.transaction_amount = transaction_amount
         self.client_id = client_id
@@ -20,3 +25,6 @@ class Transactions(Base):
 
     def __repr__(self):
         return u"Transaction(%s, %s)" % (self.transaction_date, self.client_name)
+
+    def __unicode__(self):
+        return self.transaction_id
