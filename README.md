@@ -39,7 +39,7 @@
 > Luego debemos abrir el archivo setting.py y ajustar la configuracion para la ruta de conexión de SqlAlchemy.
 > Para eso, debemos modificar la constante: ** DATABASE_ENGINE **
 > También en este archivo, debemos modificar la ruta de lectura, donde está expuesto el archivo .csv para lectura.
-> Para eso, debemos modificar la constante: ** URL_FILE **
+> Para eso, debemos modificar la constante: ** URL_FILE **, como prueba he usado un archivo subido en una instancia de s3 de aws: https://dcorquir-bk-lb1.s3.amazonaws.com/filetst.csv
 >
 > Luego podemos poner en marcha el proyecto. Para eso en la consola se ejecuta el comando:
 > ```
