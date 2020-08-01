@@ -5,7 +5,8 @@ Base = declarative_base()
 
 class Transactions(Base):
     __tablename__ = 'transactions'
-    transaction_id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    transaction_id = Column(String)
     transaction_date = Column(String)
     transaction_amount = Column(String)
     client_id = Column(String)
