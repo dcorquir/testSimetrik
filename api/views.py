@@ -51,13 +51,28 @@ class TransactionsViewSet(viewsets.ViewSet):
                 query = query.filter(Transactions.transaction_date == args["transaction_date"])
 
             # Descending sort by the field specified
-            if "sort" in args and args["sort"].startswith("-"):
-                field = args["sort"].replace("-", "")
-                sort_by = getattr(Transactions, field).desc()
+            if "sort" in args:
+                if args["sort"].startswith("-"):
+                    field = args["sort"].replace("-", "")
+                    sort_by = getattr(Transactions, field).desc()
+                else:
+                    sort_by = getattr(Transactions, args["sort"]).asc()
             else:
-                sort_by = getattr(Transactions, args["sort"]).asc()
-            query = query.order_by(sort_by)
-            query, pagination = apply_pagination(query, page_number=int(args['page']), page_size=int(args['per_page']))
+                sort_by = None
+            # Paginate data
+            if 'page' in args:
+                page = args['page']
+            else:
+                page = 1
+            if 'per_page' in args:
+                per_page = args['per_page']
+            else:
+                per_page = 10
+
+            if sort_by:
+                query = query.order_by(sort_by)
+
+            query, pagination = apply_pagination(query, page_number=int(page), page_size=int(per_page))
             data = query.all()
             session.close()
             serializer = TransactionsSerializer(data, many=True)
